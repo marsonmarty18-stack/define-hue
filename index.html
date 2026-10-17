@@ -55,7 +55,7 @@
       animation: blushPulse 3s ease-in-out infinite;
     }
 
-    /* === EXACT AMOS LOLLIPOP RARE ANIMATIONS (400TH PRESS) === */
+    /* === RARE AMOS LOLLIPOP ANIMATIONS (400TH PRESS) === */
     @keyframes lollyEat {
       0% { transform: translate(40px, 40px) scale(0); opacity: 0; }
       30% { transform: translate(0px, 10px) scale(1) rotate(15deg); opacity: 1; }
@@ -191,6 +191,61 @@
       </div>
     </section>
 
+    <!-- MODULE 1: MUSEUM PAGE -->
+    <section id="module-museum" class="hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
+          <h1 class="text-3xl font-extrabold">🏛️ Digital Museum Hub</h1>
+        </div>
+        <button onclick="openAddArtifactModal()" class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all">
+          + Add New Artifact
+        </button>
+      </div>
+
+      <div class="flex gap-4 border-b border-slate-800 pb-3">
+        <button onclick="toggleMuseumMode('personal')" id="tab-personal" class="text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1">
+          My Personal Museum Vault
+        </button>
+        <button onclick="toggleMuseumMode('world')" id="tab-world" class="text-sm font-bold text-slate-400 hover:text-white pb-1">
+          World Museum Discovery
+        </button>
+      </div>
+
+      <div id="museum-personal-view" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card p-4 rounded-2xl space-y-3">
+          <div class="h-48 bg-slate-800 rounded-xl flex items-center justify-center text-4xl">🏆</div>
+          <h3 class="font-bold text-lg">Championship Trophy 2025</h3>
+          <p class="text-xs text-slate-400">First place regional tournament highlight video and team photo badge.</p>
+          <span class="inline-block bg-slate-800 px-2.5 py-1 rounded-full text-[10px] text-brand-500 font-medium">Video Memory • Added Oct 2025</span>
+        </div>
+
+        <div class="glass-card p-4 rounded-2xl space-y-3">
+          <div class="h-48 bg-slate-800 rounded-xl flex items-center justify-center text-4xl">🎨</div>
+          <h3 class="font-bold text-lg">First Canvas Oil Painting</h3>
+          <p class="text-xs text-slate-400">High-resolution scan of my original canvas piece, annotated by AI Curator.</p>
+          <span class="inline-block bg-slate-800 px-2.5 py-1 rounded-full text-[10px] text-brand-500 font-medium">Image Memory • Added Aug 2026</span>
+        </div>
+      </div>
+
+      <div id="museum-world-view" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card p-6 rounded-2xl space-y-3 border-l-4 border-brand-500">
+          <h3 class="text-xl font-bold">The Louvre Museum (Paris, France)</h3>
+          <p class="text-xs text-slate-400">Virtual tour access to official online tours and collections database.</p>
+          <a href="https://www.louvre.fr/en/online-tours" target="_blank" class="inline-block bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-4 py-2 rounded-xl text-brand-500">
+            Launch Virtual Exhibit &rarr;
+          </a>
+        </div>
+        <div class="glass-card p-6 rounded-2xl space-y-3 border-l-4 border-cyan-500">
+          <h3 class="text-xl font-bold">Tokyo Digital Art Museum (teamLab)</h3>
+          <p class="text-xs text-slate-400">Immersive, borderless digital art installations at Azabudai Hills.</p>
+          <a href="https://www.teamlab.art/e/tokyo/" target="_blank" class="inline-block bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-4 py-2 rounded-xl text-cyan-400">
+            Launch Virtual Exhibit &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- INTERACTIVE AGENT CHAT & SEND COUNTER -->
     <section class="glass-card p-6 rounded-3xl mt-8 space-y-4 border border-slate-800">
       <div class="flex items-center justify-between">
@@ -225,18 +280,9 @@
         <div class="absolute top-[38%] right-[22%] w-3 h-2 rounded-full caf-blush pointer-events-none"></div>
       </div>
 
-      <!-- EXACT AMOS TASTYSOUNDS BLUEBERRY LOLLIPOP OVERLAY (UNLOCKED AT 400 SENDS) -->
+      <!-- EXACT AMOS TASTYSOUNDS LOLLIPOP IMAGE OVERLAY (UNLOCKED AT 400 SENDS) -->
       <div id="lollipopOverlay" class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-0">
-        <svg class="w-14 h-14 drop-shadow-xl" viewBox="0 0 100 100" fill="none">
-          <!-- Sky Blue Bone Conduction Handle & Headphone Base -->
-          <rect x="46" y="38" width="8" height="35" rx="4" fill="#67e8f9" />
-          <path d="M36 73 C36 65, 64 65, 64 73 L66 88 C66 93, 34 93, 34 88 Z" fill="#38bdf8" />
-          <circle cx="31" cy="80" r="5" fill="#0284c7" />
-          <circle cx="69" cy="80" r="5" fill="#0284c7" />
-          <!-- Split Heart Faceted Top: Left Pink Side, Right Clear/Sparkle Side -->
-          <path d="M50 38 C38 20, 22 33, 50 52 Z" fill="#ec4899" opacity="0.95" />
-          <path d="M50 38 C62 20, 78 33, 50 52 Z" fill="#e2e8f0" opacity="0.85" />
-        </svg>
+        <img src="lollipop.jpeg" alt="Amos TastySounds Lollipop" class="w-16 h-16 object-contain drop-shadow-2xl">
       </div>
 
     </div>
@@ -297,6 +343,26 @@
       });
       document.getElementById(`module-${moduleId}`).classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMuseumMode(mode) {
+      if(mode === 'personal') {
+        document.getElementById('museum-personal-view').classList.remove('hidden');
+        document.getElementById('museum-world-view').classList.add('hidden');
+        document.getElementById('tab-personal').className = "text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1";
+        document.getElementById('tab-world').className = "text-sm font-bold text-slate-400 hover:text-white pb-1";
+      } else {
+        document.getElementById('museum-personal-view').classList.add('hidden');
+        document.getElementById('museum-world-view').classList.remove('hidden');
+        document.getElementById('tab-world').className = "text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1";
+        document.getElementById('tab-personal').className = "text-sm font-bold text-slate-400 hover:text-white pb-1";
+      }
+    }
+
+    function shuffleInspiration() {
+      const modules = ['museum', 'sports', 'broadcast', 'arts'];
+      const randomModule = modules[Math.floor(Math.random() * modules.length)];
+      showModule(randomModule);
     }
   </script>
 </body>
