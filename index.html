@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUSE Spectrum | Creative Platform</title>
+  <title>MUSE Spectrum & Juno | Creative Intelligence Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -12,7 +12,7 @@
         extend: {
           colors: {
             brand: { 50: '#f0fdf4', 500: '#22c55e', 600: '#16a34a', 900: '#14532d' },
-            darkbg: '#0B0F17',
+            darkbg: '#000000',
             cardbg: '#161F30',
           }
         }
@@ -20,6 +20,15 @@
     }
   </script>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
+      background-color: #000000;
+      color: #FFFFFF;
+      overflow-x: hidden;
+    }
+
     .glass-card {
       background: rgba(22, 31, 48, 0.7);
       backdrop-filter: blur(12px);
@@ -27,6 +36,64 @@
     }
     .glow-effect:hover {
       box-shadow: 0 0 25px rgba(34, 197, 94, 0.25);
+    }
+
+    /* === iOS APPLE INTELLIGENCE FLUID GLOW EFFECT === */
+    .ios-glow-border {
+      position: relative;
+      border-radius: 9999px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ios-glow-border::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      padding: 2px;
+      background: conic-gradient(
+        from var(--border-angle, 0deg),
+        #BC82F3, #F5B9EA, #8D9FFF, #AA6EEE, #FF6778, #FFBA71, #C686FF, #BC82F3
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      animation: rotateGlow 4s linear infinite;
+    }
+
+    .ios-glow-border.active-glow::before {
+      opacity: 1;
+    }
+
+    @property --border-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes rotateGlow {
+      to {
+        --border-angle: 360deg;
+      }
+    }
+
+    /* Fullscreen iOS Screen Edge Fluid Glow */
+    #iosEdgeGlow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 40px;
+      box-shadow: inset 0 0 35px 8px rgba(188, 130, 243, 0.4),
+                  inset 0 0 15px 4px rgba(255, 103, 120, 0.5);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 50;
+    }
+
+    #iosEdgeGlow.active {
+      opacity: 1;
     }
 
     /* === CAF IDLE REALISTIC ANIMATIONS === */
@@ -96,169 +163,123 @@
     .anim-pirate { animation: lollyPirate 4s ease-in-out forwards; }
   </style>
 </head>
-<body class="bg-darkbg text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-black text-slate-100 min-h-screen flex flex-col justify-between p-4 selection:bg-purple-500 selection:text-white">
 
-  <!-- TOP NAV -->
-  <header class="sticky top-0 z-50 glass-card border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-3 cursor-pointer" onclick="showModule('home')">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-cyan-500 flex items-center justify-center text-xl font-black shadow-lg">
-          M
-        </div>
-        <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-brand-500 bg-clip-text text-transparent">
-          MUSE SPECTRUM
-        </span>
+  <!-- FULLSCREEN iOS INTELLIGENCE GLOW OVERLAY -->
+  <div id="iosEdgeGlow"></div>
+
+  <!-- JUNO TOP NAVIGATION & MAIN CHAT CAPSULE -->
+  <header class="w-full space-y-4 pt-2 max-w-4xl mx-auto">
+    <div class="flex items-center justify-between px-2">
+      <div class="flex items-center gap-2 cursor-pointer" onclick="showModule('home')">
+        <div class="w-7 h-7 rounded-lg bg-gradient-to-tr from-brand-500 to-cyan-500 flex items-center justify-center font-black text-xs text-white">M</div>
+        <span class="text-sm font-bold tracking-tight text-slate-200">MUSE SPECTRUM</span>
       </div>
+      <h1 class="text-base font-semibold text-slate-100 tracking-tight">Juno</h1>
+      <button onclick="triggerIOSAnimation(); showModule('home');" class="w-9 h-9 bg-[#1C1C1E] hover:bg-[#2C2C2E] rounded-full flex items-center justify-center transition-transform active:scale-90">
+        <svg class="w-4 h-4 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </button>
+    </div>
 
-      <!-- COMPANION SELECTOR STATUS -->
-      <div class="flex items-center gap-3 glass-card px-3 py-1.5 rounded-full text-xs">
-        <span class="relative flex h-2.5 w-2.5">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
-        </span>
-        <span class="text-slate-400">Active Companion:</span>
-        <select id="companionSelect" onchange="changeCompanion(this.value)" class="bg-transparent text-brand-500 font-semibold focus:outline-none cursor-pointer">
-          <option value="caf_v1" class="bg-slate-900 text-white">🐾 Caf (Interactive Mascot)</option>
-          <option value="aetheria_v1" class="bg-slate-900 text-white">✨ Aetheria (Creative Sprite)</option>
-          <option value="gryphon_v1" class="bg-slate-900 text-white">🛡️ Gryphon (Guardian / Focus)</option>
-        </select>
+    <!-- Main Chat Button Capsule with iOS Glow -->
+    <div onclick="triggerIOSAnimation(); showModule('home');" class="ios-glow-border w-full cursor-pointer">
+      <div class="w-full bg-[#2C2C2E] hover:bg-[#3A3A3C] text-slate-100 font-medium px-5 py-3.5 rounded-full text-base transition-all active:scale-[0.98] flex items-center justify-between">
+        <span>Main chat</span>
+        <span class="text-xs text-brand-500 font-semibold" id="sendCounterBadge">Sends: 0 / 400</span>
       </div>
     </div>
   </header>
 
-  <!-- MAIN CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 py-8">
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="max-w-4xl mx-auto w-full my-6 flex-1 space-y-8">
 
-    <!-- HOME / HUB VIEW -->
-    <section id="module-home" class="space-y-8">
-      <div class="glass-card rounded-3xl p-8 relative overflow-hidden border border-brand-500/20 glow-effect transition-all">
-        <div class="max-w-2xl relative z-10 space-y-4">
+    <!-- JUNO SIDE CHATS SECTION -->
+    <section id="module-sidechats" class="space-y-6">
+      <div class="w-full flex items-center justify-between px-2 text-slate-500 font-medium text-sm">
+        <span>Side chats</span>
+        <button onclick="triggerIOSAnimation()" class="hover:text-slate-300 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Side Chat Empty State -->
+      <div class="flex flex-col items-center text-center space-y-3 px-6 py-6">
+        <div class="w-12 h-12 flex items-center justify-center text-slate-300">
+          <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold text-white tracking-tight">Start a side chat</h2>
+        <p class="text-slate-400 text-sm leading-relaxed max-w-xs">
+          Side chats are an optional way to organize your conversations by topic.
+        </p>
+      </div>
+    </section>
+
+    <!-- MUSE SPECTRUM INSPIRATION MODULES -->
+    <section id="module-home" class="hidden space-y-6">
+      <div class="glass-card rounded-3xl p-6 border border-brand-500/20 glow-effect transition-all">
+        <div class="space-y-3">
           <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 border border-brand-500/20">
             Powered by Muse Agentic Architecture
           </span>
-          <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
-            Immerse Yourself in Any Hobby or Creative Dream.
-          </h1>
-          <p class="text-slate-400 text-base">
-            Select an inspiration category below or hit <strong class="text-white">Shuffle</strong> to explore world museums, sports performance centers, broadcasting suites, and personal digital archives.
-          </p>
+          <h2 class="text-2xl font-bold tracking-tight">Immerse Yourself in Any Hobby or Creative Dream</h2>
           <div class="flex flex-wrap gap-3 pt-2">
-            <button onclick="shuffleInspiration()" class="bg-gradient-to-r from-brand-500 to-emerald-600 hover:from-brand-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-brand-500/20 transition-all flex items-center gap-2">
+            <button onclick="shuffleInspiration(); triggerIOSAnimation();" class="bg-gradient-to-r from-brand-500 to-emerald-600 hover:from-brand-600 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg transition-all">
               🎲 Shuffle Inspiration
             </button>
-            <button onclick="showModule('museum')" class="glass-card hover:bg-slate-800 text-white px-6 py-3 rounded-xl font-semibold transition-all">
-              🏛️ Open Personal Museum
+            <button onclick="showModule('museum'); triggerIOSAnimation();" class="glass-card hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-all">
+              🏛️ Open Museum Vault
             </button>
           </div>
         </div>
       </div>
 
-      <!-- CATEGORY GRID -->
-      <div class="space-y-4">
-        <h2 class="text-2xl font-bold tracking-tight flex items-center gap-2">
-          <span>Explore All Inspirations & Hobbies</span>
-        </h2>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div onclick="showModule('museum')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-brand-500/50 glow-effect transition-all space-y-3 group">
-            <div class="text-4xl group-hover:scale-110 transition-transform">🏛️</div>
-            <h3 class="text-xl font-bold group-hover:text-brand-500 transition-colors">Museums & Artifacts</h3>
-            <p class="text-xs text-slate-400">Curate your own personal museum or explore historical exhibits worldwide.</p>
-            <span class="text-xs text-brand-500 font-semibold block">Explore Page &rarr;</span>
-          </div>
-
-          <div onclick="showModule('sports')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-brand-500/50 glow-effect transition-all space-y-3 group">
-            <div class="text-4xl group-hover:scale-110 transition-transform">🏀</div>
-            <h3 class="text-xl font-bold group-hover:text-brand-500 transition-colors">All Sports & Movement</h3>
-            <p class="text-xs text-slate-400">Basketball, Soccer, Tennis, Martial Arts & 50+ athletic disciplines.</p>
-            <span class="text-xs text-brand-500 font-semibold block">Explore Page &rarr;</span>
-          </div>
-
-          <div onclick="showModule('broadcast')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-brand-500/50 glow-effect transition-all space-y-3 group">
-            <div class="text-4xl group-hover:scale-110 transition-transform">🎙️</div>
-            <h3 class="text-xl font-bold group-hover:text-brand-500 transition-colors">Broadcasting & Media</h3>
-            <p class="text-xs text-slate-400">Host live streams, podcasts, and video broadcasts with co-host AI overlays.</p>
-            <span class="text-xs text-brand-500 font-semibold block">Explore Page &rarr;</span>
-          </div>
-
-          <div onclick="showModule('arts')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-brand-500/50 glow-effect transition-all space-y-3 group">
-            <div class="text-4xl group-hover:scale-110 transition-transform">🎨</div>
-            <h3 class="text-xl font-bold group-hover:text-brand-500 transition-colors">Visual & Creative Arts</h3>
-            <p class="text-xs text-slate-400">Digital canvas, 3D modeling, music production, and interactive design.</p>
-            <span class="text-xs text-brand-500 font-semibold block">Explore Page &rarr;</span>
-          </div>
+      <!-- CATEGORIES GRID -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div onclick="showModule('museum'); triggerIOSAnimation();" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-brand-500/50 transition-all space-y-2">
+          <div class="text-3xl">🏛️</div>
+          <h3 class="font-bold text-base">Museums & Artifacts</h3>
+          <p class="text-xs text-slate-400">Curate your personal museum or explore worldwide exhibits.</p>
+        </div>
+        <div onclick="showModule('museum'); triggerIOSAnimation();" class="glass-card p-5 rounded-2xl cursor-pointer hover:border-brand-500/50 transition-all space-y-2">
+          <div class="text-3xl">🎨</div>
+          <h3 class="font-bold text-base">Visual & Creative Arts</h3>
+          <p class="text-xs text-slate-400">Digital canvas, 3D modeling, and interactive design.</p>
         </div>
       </div>
     </section>
 
-    <!-- MODULE 1: MUSEUM PAGE -->
+    <!-- MODULE: MUSEUM PAGE -->
     <section id="module-museum" class="hidden space-y-6">
       <div class="flex items-center justify-between">
         <div>
-          <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
-          <h1 class="text-3xl font-extrabold">🏛️ Digital Museum Hub</h1>
-        </div>
-        <button onclick="openAddArtifactModal()" class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all">
-          + Add New Artifact
-        </button>
-      </div>
-
-      <div class="flex gap-4 border-b border-slate-800 pb-3">
-        <button onclick="toggleMuseumMode('personal')" id="tab-personal" class="text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1">
-          My Personal Museum Vault
-        </button>
-        <button onclick="toggleMuseumMode('world')" id="tab-world" class="text-sm font-bold text-slate-400 hover:text-white pb-1">
-          World Museum Discovery
-        </button>
-      </div>
-
-      <div id="museum-personal-view" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glass-card p-4 rounded-2xl space-y-3">
-          <div class="h-48 bg-slate-800 rounded-xl flex items-center justify-center text-4xl">🏆</div>
-          <h3 class="font-bold text-lg">Championship Trophy 2025</h3>
-          <p class="text-xs text-slate-400">First place regional tournament highlight video and team photo badge.</p>
-          <span class="inline-block bg-slate-800 px-2.5 py-1 rounded-full text-[10px] text-brand-500 font-medium">Video Memory • Added Oct 2025</span>
-        </div>
-
-        <div class="glass-card p-4 rounded-2xl space-y-3">
-          <div class="h-48 bg-slate-800 rounded-xl flex items-center justify-center text-4xl">🎨</div>
-          <h3 class="font-bold text-lg">First Canvas Oil Painting</h3>
-          <p class="text-xs text-slate-400">High-resolution scan of my original canvas piece, annotated by AI Curator.</p>
-          <span class="inline-block bg-slate-800 px-2.5 py-1 rounded-full text-[10px] text-brand-500 font-medium">Image Memory • Added Aug 2026</span>
+          <button onclick="showModule('sidechats'); triggerIOSAnimation();" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Side Chats</button>
+          <h1 class="text-2xl font-extrabold">🏛️ Digital Museum Hub</h1>
         </div>
       </div>
-
-      <div id="museum-world-view" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="glass-card p-6 rounded-2xl space-y-3 border-l-4 border-brand-500">
-          <h3 class="text-xl font-bold">The Louvre Museum (Paris, France)</h3>
-          <p class="text-xs text-slate-400">Virtual tour access to official online tours and collections database.</p>
-          <a href="https://www.louvre.fr/en/online-tours" target="_blank" class="inline-block bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-4 py-2 rounded-xl text-brand-500">
-            Launch Virtual Exhibit &rarr;
-          </a>
+      <div id="museum-personal-view" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="glass-card p-4 rounded-2xl space-y-2">
+          <div class="h-36 bg-slate-800 rounded-xl flex items-center justify-center text-3xl">🏆</div>
+          <h3 class="font-bold text-base">Championship Trophy 2025</h3>
+          <p class="text-xs text-slate-400">Regional tournament highlight video and team photo badge.</p>
         </div>
-        <div class="glass-card p-6 rounded-2xl space-y-3 border-l-4 border-cyan-500">
-          <h3 class="text-xl font-bold">Tokyo Digital Art Museum (teamLab)</h3>
-          <p class="text-xs text-slate-400">Immersive, borderless digital art installations at Azabudai Hills.</p>
-          <a href="https://www.teamlab.art/e/tokyo/" target="_blank" class="inline-block bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-4 py-2 rounded-xl text-cyan-400">
-            Launch Virtual Exhibit &rarr;
-          </a>
+        <div class="glass-card p-4 rounded-2xl space-y-2">
+          <div class="h-36 bg-slate-800 rounded-xl flex items-center justify-center text-3xl">🎨</div>
+          <h3 class="font-bold text-base">First Canvas Oil Painting</h3>
+          <p class="text-xs text-slate-400">Scan of original canvas piece, annotated by AI Curator.</p>
         </div>
       </div>
     </section>
 
-    <!-- INTERACTIVE AGENT CHAT & SEND COUNTER -->
-    <section class="glass-card p-6 rounded-3xl mt-8 space-y-4 border border-slate-800">
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg font-bold flex items-center gap-2">
-          <span>Message Caf & Trigger Actions</span>
-        </h3>
-        <span class="text-xs bg-slate-800 px-3 py-1 rounded-full text-brand-500 font-semibold" id="sendCounterBadge">
-          Sends: 0 / 400
-        </span>
-      </div>
-
+    <!-- INTERACTIVE AGENT CHAT -->
+    <section class="glass-card p-5 rounded-3xl space-y-3 border border-slate-800">
       <div class="flex gap-2">
-        <input type="text" id="userInput" placeholder="Ask Caf anything or request a playbook..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500">
+        <input type="text" id="userInput" placeholder="Ask Caf or Juno anything..." onfocus="triggerIOSAnimation()" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500">
         <button onclick="handleSend()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-3 rounded-xl text-sm transition-all shadow-lg">
           Send
         </button>
@@ -267,20 +288,48 @@
 
   </main>
 
-  <!-- REALISTIC ANIMATED CAF FLOATING BADGE -->
-  <div class="fixed bottom-6 right-6 z-50">
+  <!-- JUNO BOTTOM SETTINGS & ACTION BAR -->
+  <footer class="w-full max-w-4xl mx-auto flex items-center gap-2 pb-2">
+    <!-- Settings Button -->
+    <button onclick="triggerIOSAnimation()" class="w-12 h-12 bg-[#1C1C1E] hover:bg-[#2C2C2E] rounded-full flex items-center justify-center text-slate-300 transition-transform active:scale-90 flex-shrink-0">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+    </button>
+
+    <!-- Search Capsule Bar -->
+    <div class="ios-glow-border flex-1">
+      <div class="flex items-center gap-2.5 bg-[#1C1C1E] px-4 py-3 rounded-full border border-transparent focus-within:border-slate-700">
+        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input type="text" placeholder="Search" onfocus="triggerIOSAnimation()" class="bg-transparent text-sm text-white placeholder-slate-500 focus:outline-none w-full">
+      </div>
+    </div>
+
+    <!-- Edit/New Chat Button -->
+    <button onclick="triggerIOSAnimation(); showModule('home');" class="w-12 h-12 bg-[#1C1C1E] hover:bg-[#2C2C2E] rounded-full flex items-center justify-center text-slate-300 transition-transform active:scale-90 flex-shrink-0">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+      </svg>
+    </button>
+  </footer>
+
+  <!-- REALISTIC ANIMATED CAF FLOATING BADGE WITH LOLLIPOP EASTER EGG -->
+  <div class="fixed bottom-20 right-6 z-50">
     <div class="relative w-20 h-20 rounded-full overflow-hidden border-2 border-brand-500 shadow-2xl cursor-pointer glass-card flex items-center justify-center p-1 caf-sway-animation" onclick="triggerManualSmile()">
       
       <!-- Caf Base Image & Head Sway -->
       <div class="relative w-full h-full rounded-full overflow-hidden caf-head-animation">
         <img src="IMG_1676.jpeg" alt="Caf - Muse Mascot" class="w-full h-full object-cover">
         
-        <!-- PINK BLUSHING DIMPLES OVERLAY -->
+        <!-- PINK BLUSHING DIMPLES -->
         <div class="absolute top-[38%] left-[22%] w-3 h-2 rounded-full caf-blush pointer-events-none"></div>
         <div class="absolute top-[38%] right-[22%] w-3 h-2 rounded-full caf-blush pointer-events-none"></div>
       </div>
 
-      <!-- EXACT AMOS TASTYSOUNDS LOLLIPOP IMAGE OVERLAY (UNLOCKED AT 400 SENDS) -->
+      <!-- EXACT AMOS LOLLIPOP OVERLAY PHOTO -->
       <div id="lollipopOverlay" class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-0">
         <img src="lollipop.jpeg" alt="Amos TastySounds Lollipop" class="w-16 h-16 object-contain drop-shadow-2xl">
       </div>
@@ -289,12 +338,13 @@
   </div>
 
   <script>
-    // Initialize LocalStorage Send Counter
+    // LocalStorage Send Counter
     let sendCount = parseInt(localStorage.getItem('caf_send_count') || '0');
     updateCounterBadge();
 
     function updateCounterBadge() {
-      document.getElementById('sendCounterBadge').innerText = `Sends: ${sendCount} / 400`;
+      const badge = document.getElementById('sendCounterBadge');
+      if (badge) badge.innerText = `Sends: ${sendCount} / 400`;
     }
 
     function handleSend() {
@@ -304,10 +354,10 @@
       sendCount++;
       localStorage.setItem('caf_send_count', sendCount);
       updateCounterBadge();
+      triggerIOSAnimation();
 
       input.value = '';
 
-      // Check for 400th send trigger
       if (sendCount % 400 === 0 && sendCount > 0) {
         triggerRareLollipopAnimation();
       } else {
@@ -315,17 +365,31 @@
       }
     }
 
+    function triggerIOSAnimation() {
+      const capsules = document.querySelectorAll('.ios-glow-border');
+      const edgeGlow = document.getElementById('iosEdgeGlow');
+
+      capsules.forEach(capsule => capsule.classList.add('active-glow'));
+      if (edgeGlow) edgeGlow.classList.add('active');
+
+      setTimeout(() => {
+        capsules.forEach(capsule => capsule.classList.remove('active-glow'));
+        if (edgeGlow) edgeGlow.classList.remove('active');
+      }, 2500);
+    }
+
     function triggerManualSmile() {
       const blushes = document.querySelectorAll('.caf-blush');
       blushes.forEach(b => {
         b.style.animation = 'none';
-        b.offsetHeight; // trigger reflow
+        b.offsetHeight;
         b.style.animation = 'blushPulse 1s ease-in-out 2';
       });
     }
 
     function triggerRareLollipopAnimation() {
       const lollipop = document.getElementById('lollipopOverlay');
+      if (!lollipop) return;
       const animations = ['anim-eat', 'anim-forehead', 'anim-throw', 'anim-flag', 'anim-pirate'];
       
       const randomAnim = animations[Math.floor(Math.random() * animations.length)];
@@ -337,32 +401,18 @@
     }
 
     function showModule(moduleId) {
-      const modules = ['home', 'museum', 'sports', 'broadcast', 'arts'];
+      const modules = ['sidechats', 'home', 'museum'];
       modules.forEach(m => {
-        document.getElementById(`module-${m}`).classList.add('hidden');
+        const el = document.getElementById(`module-${m}`);
+        if (el) el.classList.add('hidden');
       });
-      document.getElementById(`module-${moduleId}`).classList.remove('hidden');
+      const target = document.getElementById(`module-${moduleId}`);
+      if (target) target.classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function toggleMuseumMode(mode) {
-      if(mode === 'personal') {
-        document.getElementById('museum-personal-view').classList.remove('hidden');
-        document.getElementById('museum-world-view').classList.add('hidden');
-        document.getElementById('tab-personal').className = "text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1";
-        document.getElementById('tab-world').className = "text-sm font-bold text-slate-400 hover:text-white pb-1";
-      } else {
-        document.getElementById('museum-personal-view').classList.add('hidden');
-        document.getElementById('museum-world-view').classList.remove('hidden');
-        document.getElementById('tab-world').className = "text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1";
-        document.getElementById('tab-personal').className = "text-sm font-bold text-slate-400 hover:text-white pb-1";
-      }
-    }
-
     function shuffleInspiration() {
-      const modules = ['museum', 'sports', 'broadcast', 'arts'];
-      const randomModule = modules[Math.floor(Math.random() * modules.length)];
-      showModule(randomModule);
+      showModule('home');
     }
   </script>
 </body>
