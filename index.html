@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MUSE Spectrum | Creative & Active Inspiration Platform</title>
+  <title>MUSE Spectrum | Creative Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -28,6 +28,72 @@
     .glow-effect:hover {
       box-shadow: 0 0 25px rgba(34, 197, 94, 0.25);
     }
+
+    /* === CAF IDLE REALISTIC ANIMATIONS === */
+    @keyframes cafSway {
+      0%, 100% { transform: rotate(-2.5deg) translateY(0px); }
+      50% { transform: rotate(2.5deg) translateY(-3px); }
+    }
+    @keyframes cafHeadBreathe {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.02) rotate(-1.5deg); }
+    }
+    @keyframes blushPulse {
+      0%, 100% { opacity: 0.2; transform: scale(0.9); }
+      50% { opacity: 0.85; transform: scale(1.15); }
+    }
+
+    .caf-sway-animation {
+      animation: cafSway 4.5s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+    .caf-head-animation {
+      animation: cafHeadBreathe 3s ease-in-out infinite;
+    }
+    .caf-blush {
+      background: radial-gradient(circle, rgba(244,114,182,0.8) 0%, rgba(244,114,182,0) 70%);
+      animation: blushPulse 3s ease-in-out infinite;
+    }
+
+    /* === EXACT AMOS LOLLIPOP RARE ANIMATIONS (400TH PRESS) === */
+    @keyframes lollyEat {
+      0% { transform: translate(40px, 40px) scale(0); opacity: 0; }
+      30% { transform: translate(0px, 10px) scale(1) rotate(15deg); opacity: 1; }
+      50% { transform: translate(-5px, -10px) scale(1.05) rotate(0deg); }
+      70% { transform: translate(0px, 10px) scale(1) rotate(15deg); }
+      100% { transform: translate(40px, 40px) scale(0); opacity: 0; }
+    }
+    @keyframes lollyForehead {
+      0% { transform: translateY(50px) scale(0); opacity: 0; }
+      40% { transform: translateY(-35px) rotate(90deg) scale(1); opacity: 1; }
+      80% { transform: translateY(-35px) rotate(90deg) scale(1); opacity: 1; }
+      100% { transform: translateY(50px) scale(0); opacity: 0; }
+    }
+    @keyframes lollyThrow {
+      0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
+      30% { transform: scale(1) rotate(-20deg); opacity: 1; }
+      70% { transform: scale(2.8) translate(-60px, -80px) rotate(180deg); opacity: 0.9; }
+      100% { transform: scale(0) translate(-100px, -150px); opacity: 0; }
+    }
+    @keyframes lollyWaveFlag {
+      0%, 100% { transform: rotate(0deg) scale(0); opacity: 0; }
+      20% { transform: rotate(-15deg) scale(1); opacity: 1; }
+      40% { transform: rotate(25deg) scale(1); }
+      60% { transform: rotate(-20deg) scale(1); }
+      80% { transform: rotate(15deg) scale(1); }
+    }
+    @keyframes lollyPirate {
+      0% { transform: translate(30px, 30px) scale(0); opacity: 0; }
+      30% { transform: translate(-10px, -20px) rotate(-45deg) scale(1); opacity: 1; }
+      70% { transform: translate(-10px, -20px) rotate(-40deg) scale(1.1); opacity: 1; }
+      100% { transform: translate(30px, 30px) scale(0); opacity: 0; }
+    }
+
+    .anim-eat { animation: lollyEat 4s ease-in-out forwards; }
+    .anim-forehead { animation: lollyForehead 4s ease-in-out forwards; }
+    .anim-throw { animation: lollyThrow 3.5s ease-in-out forwards; }
+    .anim-flag { animation: lollyWaveFlag 4s ease-in-out forwards; }
+    .anim-pirate { animation: lollyPirate 4s ease-in-out forwards; }
   </style>
 </head>
 <body class="bg-darkbg text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
@@ -52,7 +118,7 @@
         </span>
         <span class="text-slate-400">Active Companion:</span>
         <select id="companionSelect" onchange="changeCompanion(this.value)" class="bg-transparent text-brand-500 font-semibold focus:outline-none cursor-pointer">
-          <option value="caf_v1" class="bg-slate-900 text-white">🐾 Caf (Muse Mascot)</option>
+          <option value="caf_v1" class="bg-slate-900 text-white">🐾 Caf (Interactive Mascot)</option>
           <option value="aetheria_v1" class="bg-slate-900 text-white">✨ Aetheria (Creative Sprite)</option>
           <option value="gryphon_v1" class="bg-slate-900 text-white">🛡️ Gryphon (Guardian / Focus)</option>
         </select>
@@ -125,155 +191,105 @@
       </div>
     </section>
 
-    <!-- MODULE 1: MUSEUM PAGE -->
-    <section id="module-museum" class="hidden space-y-6">
+    <!-- INTERACTIVE AGENT CHAT & SEND COUNTER -->
+    <section class="glass-card p-6 rounded-3xl mt-8 space-y-4 border border-slate-800">
       <div class="flex items-center justify-between">
-        <div>
-          <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
-          <h1 class="text-3xl font-extrabold">🏛️ Digital Museum Hub</h1>
-        </div>
-        <button onclick="openAddArtifactModal()" class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all">
-          + Add New Artifact
+        <h3 class="text-lg font-bold flex items-center gap-2">
+          <span>Message Caf & Trigger Actions</span>
+        </h3>
+        <span class="text-xs bg-slate-800 px-3 py-1 rounded-full text-brand-500 font-semibold" id="sendCounterBadge">
+          Sends: 0 / 400
+        </span>
+      </div>
+
+      <div class="flex gap-2">
+        <input type="text" id="userInput" placeholder="Ask Caf anything or request a playbook..." class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-500">
+        <button onclick="handleSend()" class="bg-brand-500 hover:bg-brand-600 text-white font-bold px-6 py-3 rounded-xl text-sm transition-all shadow-lg">
+          Send
         </button>
-      </div>
-
-      <div class="flex gap-4 border-b border-slate-800 pb-3">
-        <button onclick="toggleMuseumMode('personal')" id="tab-personal" class="text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1">
-          My Personal Museum Vault
-        </button>
-        <button onclick="toggleMuseumMode('world')" id="tab-world" class="text-sm font-bold text-slate-400 hover:text-white pb-1">
-          World Museum Discovery
-        </button>
-      </div>
-
-      <div id="museum-personal-view" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glass-card p-4 rounded-2xl space-y-3">
-          <div class="h-48 bg-slate-800 rounded-xl flex items-center justify-center text-4xl">🏆</div>
-          <h3 class="font-bold text-lg">Championship Trophy 2025</h3>
-          <p class="text-xs text-slate-400">First place regional tournament highlight video and team photo badge.</p>
-          <span class="inline-block bg-slate-800 px-2.5 py-1 rounded-full text-[10px] text-brand-500 font-medium">Video Memory • Added Oct 2025</span>
-        </div>
-
-        <div class="glass-card p-4 rounded-2xl space-y-3">
-          <div class="h-48 bg-slate-800 rounded-xl flex items-center justify-center text-4xl">🎨</div>
-          <h3 class="font-bold text-lg">First Canvas Oil Painting</h3>
-          <p class="text-xs text-slate-400">High-resolution scan of my original canvas piece, annotated by AI Curator.</p>
-          <span class="inline-block bg-slate-800 px-2.5 py-1 rounded-full text-[10px] text-brand-500 font-medium">Image Memory • Added Aug 2026</span>
-        </div>
-      </div>
-
-      <div id="museum-world-view" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="glass-card p-6 rounded-2xl space-y-3 border-l-4 border-brand-500">
-          <h3 class="text-xl font-bold">The Louvre Museum (Paris, France)</h3>
-          <p class="text-xs text-slate-400">Virtual tour access to official online tours and collections database.</p>
-          <a href="https://www.louvre.fr/en/online-tours" target="_blank" class="inline-block bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-4 py-2 rounded-xl text-brand-500">
-            Launch Virtual Exhibit &rarr;
-          </a>
-        </div>
-        <div class="glass-card p-6 rounded-2xl space-y-3 border-l-4 border-cyan-500">
-          <h3 class="text-xl font-bold">Tokyo Digital Art Museum (teamLab)</h3>
-          <p class="text-xs text-slate-400">Immersive, borderless digital art installations at Azabudai Hills.</p>
-          <a href="https://www.teamlab.art/e/tokyo/" target="_blank" class="inline-block bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-4 py-2 rounded-xl text-cyan-400">
-            Launch Virtual Exhibit &rarr;
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- MODULE 2: SPORTS PAGE -->
-    <section id="module-sports" class="hidden space-y-6">
-      <div>
-        <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
-        <h1 class="text-3xl font-extrabold">🏀 Sports & Athletic Zone</h1>
-        <p class="text-xs text-slate-400 mt-1">Select your sport to access interactive playbooks, performance tracking, and training AI.</p>
-      </div>
-
-      <div class="flex flex-wrap gap-2">
-        <button class="bg-brand-500 text-white text-xs font-bold px-4 py-2 rounded-xl">Basketball</button>
-        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Soccer / Football</button>
-        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Tennis</button>
-        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Martial Arts</button>
-        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Skateboarding</button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="glass-card p-6 rounded-2xl space-y-4 md:col-span-2">
-          <h3 class="text-xl font-bold">Interactive Playbook & Drill Canvas</h3>
-          <div class="h-64 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-center relative overflow-hidden">
-            <span class="text-slate-600 text-sm font-semibold">[ Digital Tactical Board Loading... ]</span>
-          </div>
-          <div class="flex gap-3">
-            <button class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-xl">Run Drill Simulation</button>
-            <button class="glass-card hover:bg-slate-800 text-xs font-bold px-4 py-2 rounded-xl">Record Movement Clip</button>
-          </div>
-        </div>
-
-        <div class="glass-card p-6 rounded-2xl space-y-4">
-          <h3 class="text-lg font-bold flex items-center gap-2">
-            <span>AI Coach Insight</span>
-          </h3>
-          <div class="bg-slate-900 p-4 rounded-xl text-xs space-y-2 border border-slate-800">
-            <p class="text-brand-500 font-semibold" id="companion-coach-name">Caf says:</p>
-            <p class="text-slate-300" id="companion-coach-text">
-              "Your shooting mechanics look solid! Based on your last 3 logged sessions, focusing on your elbow alignment during jump shots will boost consistency by ~14%."
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MODULE 3: BROADCASTING PAGE -->
-    <section id="module-broadcast" class="hidden space-y-6">
-      <div>
-        <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
-        <h1 class="text-3xl font-extrabold">🎙️ Live Broadcast Studio</h1>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2 glass-card p-6 rounded-2xl space-y-4">
-          <div class="h-72 bg-slate-900 rounded-xl border border-slate-800 flex flex-col items-center justify-center gap-3 relative">
-            <span class="text-4xl">📹</span>
-            <span class="text-slate-400 text-sm">Virtual Camera Preview Ready</span>
-            <span class="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md uppercase tracking-wider">Offline</span>
-          </div>
-          <div class="flex gap-3">
-            <button class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-6 py-2.5 rounded-xl">Go Live</button>
-            <button class="glass-card hover:bg-slate-800 text-xs font-bold px-4 py-2 rounded-xl">Toggle AI Co-Host</button>
-          </div>
-        </div>
-
-        <div class="glass-card p-6 rounded-2xl space-y-4">
-          <h3 class="font-bold text-lg">Broadcast Co-Host Teleprompter</h3>
-          <div class="bg-slate-900 p-4 rounded-xl text-xs space-y-3 h-64 overflow-y-auto border border-slate-800">
-            <p class="text-slate-400"><strong class="text-brand-500">Co-Host AI:</strong> "Welcome back everyone! Today we are discussing the evolution of digital archives and world museums."</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- MODULE 4: VISUAL ARTS PAGE -->
-    <section id="module-arts" class="hidden space-y-6">
-      <div>
-        <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
-        <h1 class="text-3xl font-extrabold">🎨 Visual Arts Canvas</h1>
-      </div>
-      <div class="glass-card p-6 rounded-2xl space-y-4">
-        <div class="h-80 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-center">
-          <p class="text-slate-500 text-sm">[ Generative Studio Canvas & Drawing Layer ]</p>
-        </div>
       </div>
     </section>
 
   </main>
 
-  <!-- FLOATING CAF MASCOT AVATAR -->
+  <!-- REALISTIC ANIMATED CAF FLOATING BADGE -->
   <div class="fixed bottom-6 right-6 z-50">
-    <div class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-brand-500 shadow-2xl cursor-pointer hover:scale-105 transition-transform" onclick="alert('Caf is active and ready to assist!')">
-      <img src="IMG_1676.jpeg" alt="Caf - Muse Mascot" class="w-full h-full object-cover">
+    <div class="relative w-20 h-20 rounded-full overflow-hidden border-2 border-brand-500 shadow-2xl cursor-pointer glass-card flex items-center justify-center p-1 caf-sway-animation" onclick="triggerManualSmile()">
+      
+      <!-- Caf Base Image & Head Sway -->
+      <div class="relative w-full h-full rounded-full overflow-hidden caf-head-animation">
+        <img src="IMG_1676.jpeg" alt="Caf - Muse Mascot" class="w-full h-full object-cover">
+        
+        <!-- PINK BLUSHING DIMPLES OVERLAY -->
+        <div class="absolute top-[38%] left-[22%] w-3 h-2 rounded-full caf-blush pointer-events-none"></div>
+        <div class="absolute top-[38%] right-[22%] w-3 h-2 rounded-full caf-blush pointer-events-none"></div>
+      </div>
+
+      <!-- EXACT AMOS TASTYSOUNDS BLUEBERRY LOLLIPOP OVERLAY (UNLOCKED AT 400 SENDS) -->
+      <div id="lollipopOverlay" class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-0">
+        <svg class="w-14 h-14 drop-shadow-xl" viewBox="0 0 100 100" fill="none">
+          <!-- Sky Blue Bone Conduction Handle & Headphone Base -->
+          <rect x="46" y="38" width="8" height="35" rx="4" fill="#67e8f9" />
+          <path d="M36 73 C36 65, 64 65, 64 73 L66 88 C66 93, 34 93, 34 88 Z" fill="#38bdf8" />
+          <circle cx="31" cy="80" r="5" fill="#0284c7" />
+          <circle cx="69" cy="80" r="5" fill="#0284c7" />
+          <!-- Split Heart Faceted Top: Left Pink Side, Right Clear/Sparkle Side -->
+          <path d="M50 38 C38 20, 22 33, 50 52 Z" fill="#ec4899" opacity="0.95" />
+          <path d="M50 38 C62 20, 78 33, 50 52 Z" fill="#e2e8f0" opacity="0.85" />
+        </svg>
+      </div>
+
     </div>
   </div>
 
   <script>
+    // Initialize LocalStorage Send Counter
+    let sendCount = parseInt(localStorage.getItem('caf_send_count') || '0');
+    updateCounterBadge();
+
+    function updateCounterBadge() {
+      document.getElementById('sendCounterBadge').innerText = `Sends: ${sendCount} / 400`;
+    }
+
+    function handleSend() {
+      const input = document.getElementById('userInput');
+      if (!input.value.trim()) return;
+
+      sendCount++;
+      localStorage.setItem('caf_send_count', sendCount);
+      updateCounterBadge();
+
+      input.value = '';
+
+      // Check for 400th send trigger
+      if (sendCount % 400 === 0 && sendCount > 0) {
+        triggerRareLollipopAnimation();
+      } else {
+        triggerManualSmile();
+      }
+    }
+
+    function triggerManualSmile() {
+      const blushes = document.querySelectorAll('.caf-blush');
+      blushes.forEach(b => {
+        b.style.animation = 'none';
+        b.offsetHeight; // trigger reflow
+        b.style.animation = 'blushPulse 1s ease-in-out 2';
+      });
+    }
+
+    function triggerRareLollipopAnimation() {
+      const lollipop = document.getElementById('lollipopOverlay');
+      const animations = ['anim-eat', 'anim-forehead', 'anim-throw', 'anim-flag', 'anim-pirate'];
+      
+      const randomAnim = animations[Math.floor(Math.random() * animations.length)];
+      lollipop.className = 'absolute inset-0 pointer-events-none flex items-center justify-center opacity-100 ' + randomAnim;
+
+      setTimeout(() => {
+        lollipop.className = 'absolute inset-0 pointer-events-none flex items-center justify-center opacity-0';
+      }, 4000);
+    }
+
     function showModule(moduleId) {
       const modules = ['home', 'museum', 'sports', 'broadcast', 'arts'];
       modules.forEach(m => {
@@ -281,46 +297,6 @@
       });
       document.getElementById(`module-${moduleId}`).classList.remove('hidden');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function toggleMuseumMode(mode) {
-      if(mode === 'personal') {
-        document.getElementById('museum-personal-view').classList.remove('hidden');
-        document.getElementById('museum-world-view').classList.add('hidden');
-        document.getElementById('tab-personal').className = "text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1";
-        document.getElementById('tab-world').className = "text-sm font-bold text-slate-400 hover:text-white pb-1";
-      } else {
-        document.getElementById('museum-personal-view').classList.add('hidden');
-        document.getElementById('museum-world-view').classList.remove('hidden');
-        document.getElementById('tab-world').className = "text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1";
-        document.getElementById('tab-personal').className = "text-sm font-bold text-slate-400 hover:text-white pb-1";
-      }
-    }
-
-    function shuffleInspiration() {
-      const modules = ['museum', 'sports', 'broadcast', 'arts'];
-      const randomModule = modules[Math.floor(Math.random() * modules.length)];
-      showModule(randomModule);
-    }
-
-    function changeCompanion(companionId) {
-      const coachName = document.getElementById('companion-coach-name');
-      const coachText = document.getElementById('companion-coach-text');
-
-      if (companionId === 'caf_v1') {
-        coachName.innerText = "Caf says:";
-        coachText.innerText = '"Welcome! I am Caf, your fluffy companion guide. What creative project shall we tackle today?"';
-      } else if (companionId === 'aetheria_v1') {
-        coachName.innerText = "Aetheria says:";
-        coachText.innerText = '"Your shooting mechanics look solid! Based on your last 3 logged sessions, focusing on your elbow alignment during jump shots will boost consistency by ~14%."';
-      } else if (companionId === 'gryphon_v1') {
-        coachName.innerText = "Gryphon says:";
-        coachText.innerText = '"Training discipline is on target. Heart rate recovery times improved by 8%."';
-      }
-    }
-
-    function openAddArtifactModal() {
-      alert("Artifact vault action initialized. You can upload or log your personal hobby memories here!");
     }
   </script>
 </body>
