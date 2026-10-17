@@ -19,7 +19,163 @@
       }
     }
   </script>
-  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", sans-serif;
+      background-color: #000000;
+      color: #FFFFFF;
+      overflow-x: hidden;
+    }
+
+    .glass-card {
+      background: rgba(22, 31, 48, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-effect:hover {
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.25);
+    }
+
+    /* Custom Scrollbar for Drawers */
+    .settings-scroll::-webkit-scrollbar {
+      width: 3px;
+    }
+    .settings-scroll::-webkit-scrollbar-thumb {
+      background: #3A3A3C;
+      border-radius: 9999px;
+    }
+
+    /* Hue Brand Accent */
+    .hue-crema {
+      color: #CFA76E;
+    }
+
+    /* === iOS APPLE INTELLIGENCE FLUID GLOW EFFECT === */
+    .ios-glow-border {
+      position: relative;
+      border-radius: 9999px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ios-glow-border::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: inherit;
+      padding: 2px;
+      background: conic-gradient(
+        from var(--border-angle, 0deg),
+        #BC82F3, #F5B9EA, #8D9FFF, #AA6EEE, #FF6778, #FFBA71, #C686FF, #BC82F3
+      );
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      animation: rotateGlow 4s linear infinite;
+    }
+
+    .ios-glow-border.active-glow::before {
+      opacity: 1;
+    }
+
+    @property --border-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes rotateGlow {
+      to {
+        --border-angle: 360deg;
+      }
+    }
+
+    /* Fullscreen iOS Screen Edge Fluid Glow */
+    #iosEdgeGlow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 40px;
+      box-shadow: inset 0 0 35px 8px rgba(188, 130, 243, 0.4),
+                  inset 0 0 15px 4px rgba(255, 103, 120, 0.5);
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      z-index: 50;
+    }
+
+    #iosEdgeGlow.active {
+      opacity: 1;
+    }
+
+    /* === CAF IDLE REALISTIC ANIMATIONS === */
+    @keyframes cafSway {
+      0%, 100% { transform: rotate(-2.5deg) translateY(0px); }
+      50% { transform: rotate(2.5deg) translateY(-3px); }
+    }
+    @keyframes cafHeadBreathe {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.02) rotate(-1.5deg); }
+    }
+    @keyframes blushPulse {
+      0%, 100% { opacity: 0.2; transform: scale(0.9); }
+      50% { opacity: 0.85; transform: scale(1.15); }
+    }
+
+    .caf-sway-animation {
+      animation: cafSway 4.5s ease-in-out infinite;
+      transform-origin: bottom center;
+    }
+    .caf-head-animation {
+      animation: cafHeadBreathe 3s ease-in-out infinite;
+    }
+    .caf-blush {
+      background: radial-gradient(circle, rgba(244,114,182,0.8) 0%, rgba(244,114,182,0) 70%);
+      animation: blushPulse 3s ease-in-out infinite;
+    }
+
+    /* === RARE AMOS LOLLIPOP ANIMATIONS (400TH PRESS) === */
+    @keyframes lollyEat {
+      0% { transform: translate(40px, 40px) scale(0); opacity: 0; }
+      30% { transform: translate(0px, 10px) scale(1) rotate(15deg); opacity: 1; }
+      50% { transform: translate(-5px, -10px) scale(1.05) rotate(0deg); }
+      70% { transform: translate(0px, 10px) scale(1) rotate(15deg); }
+      100% { transform: translate(40px, 40px) scale(0); opacity: 0; }
+    }
+    @keyframes lollyForehead {
+      0% { transform: translateY(50px) scale(0); opacity: 0; }
+      40% { transform: translateY(-35px) rotate(90deg) scale(1); opacity: 1; }
+      80% { transform: translateY(-35px) rotate(90deg) scale(1); opacity: 1; }
+      100% { transform: translateY(50px) scale(0); opacity: 0; }
+    }
+    @keyframes lollyThrow {
+      0% { transform: scale(0.5) rotate(0deg); opacity: 0; }
+      30% { transform: scale(1) rotate(-20deg); opacity: 1; }
+      70% { transform: scale(2.8) translate(-60px, -80px) rotate(180deg); opacity: 0.9; }
+      100% { transform: scale(0) translate(-100px, -150px); opacity: 0; }
+    }
+    @keyframes lollyWaveFlag {
+      0%, 100% { transform: rotate(0deg) scale(0); opacity: 0; }
+      20% { transform: rotate(-15deg) scale(1); opacity: 1; }
+      40% { transform: rotate(25deg) scale(1); }
+      60% { transform: rotate(-20deg) scale(1); }
+      80% { transform: rotate(15deg) scale(1); }
+    }
+    @keyframes lollyPirate {
+      0% { transform: translate(30px, 30px) scale(0); opacity: 0; }
+      30% { transform: translate(-10px, -20px) rotate(-45deg) scale(1); opacity: 1; }
+      70% { transform: translate(-10px, -20px) rotate(-40deg) scale(1.1); opacity: 1; }
+      100% { transform: translate(30px, 30px) scale(0); opacity: 0; }
+    }
+
+    .anim-eat { animation: lollyEat 4s ease-in-out forwards; }
+    .anim-forehead { animation: lollyForehead 4s ease-in-out forwards; }
+    .anim-throw { animation: lollyThrow 3.5s ease-in-out forwards; }
+    .anim-flag { animation: lollyWaveFlag 4s ease-in-out forwards; }
+    .anim-pirate { animation: lollyPirate 4s ease-in-out forwards; }
+  </style>
 </head>
 <body class="bg-black text-slate-100 min-h-screen flex flex-col justify-between p-4 selection:bg-purple-500 selection:text-white">
 
@@ -210,6 +366,7 @@
           </div>
         </div>
 
+        <!-- GROUP 1: CONNECTORS & DEVICES -->
         <div class="bg-[#242426] rounded-2xl overflow-hidden divide-y divide-[#2F2F31]">
           <div onclick="openConnectorsModal()" class="flex items-center justify-between p-4 hover:bg-[#2C2C2E] cursor-pointer transition-colors">
             <div class="flex items-center gap-3.5">
@@ -221,6 +378,7 @@
             <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </div>
 
+          <!-- DEVICES LINK (OPENS DEVICES MODAL - SECTION 6.4) -->
           <div onclick="openDevicesModal()" class="flex items-center justify-between p-4 hover:bg-[#2C2C2E] cursor-pointer transition-colors">
             <div class="flex items-center gap-3.5">
               <svg class="w-5 h-5 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -240,6 +398,7 @@
           </div>
         </div>
 
+        <!-- BRAND ACCOUNT FOOTER (𐌂 hue BRANDING) -->
         <div class="pt-2 space-y-2">
           <div class="flex items-center justify-between px-2 text-xs font-semibold text-slate-400">
             <span>Your account</span>
@@ -429,8 +588,202 @@
     </div>
   </div>
 
-  <!-- LOAD JAVASCRIPT FILES -->
-  <script src="js/connectorsData.js"></script>
-  <script src="js/app.js"></script>
+  <script>
+    let isReversed = false;
+    let sendCount = parseInt(localStorage.getItem('caf_send_count') || '0');
+    
+    window.addEventListener('DOMContentLoaded', updateCounterBadge);
+
+    // ALL 58+ CONNECTORS RESTORED FULLY IN EXACT ORDER
+    const naturalConnectors = [
+      { name: 'Browser', connected: true, modal: 'browserDetailModal' },
+      { name: 'Facebook', connected: true, modal: 'facebookDetailModal' },
+      { name: 'Gmail', connected: true, modal: 'gmailDetailModal' },
+      { name: 'Calendar', connected: false },
+      { name: 'Contacts', connected: false },
+      { name: 'Reminders', connected: false },
+      { name: 'Health', connected: false },
+      { name: 'Home', connected: false },
+      { name: 'Bluetooth', connected: false },
+      { name: 'Asana', connected: false },
+      { name: 'Box', connected: false },
+      { name: 'Calendly', connected: false },
+      { name: 'Canva', connected: false },
+      { name: 'Dropbox', connected: false },
+      { name: 'Evernote', connected: false },
+      { name: 'Figma', connected: false },
+      { name: 'HighLevel', connected: false },
+      { name: 'GitHub', connected: false },
+      { name: 'Google Calendar', connected: false },
+      { name: 'Google Contacts', connected: false },
+      { name: 'Google Docs', connected: false },
+      { name: 'Google Drive', connected: false },
+      { name: 'Google Forms', connected: false },
+      { name: 'Google Sheets', connected: false },
+      { name: 'Google Slides', connected: false },
+      { name: 'Google Tasks', connected: false },
+      { name: 'Granola', connected: false },
+      { name: 'Instagram', connected: false },
+      { name: 'Instagram Messages', connected: false },
+      { name: 'Klaviyo', connected: false },
+      { name: 'Linear', connected: false },
+      { name: 'Lovable', connected: false },
+      { name: 'Messenger', connected: false },
+      { name: 'Meta Business Manager', connected: false },
+      { name: 'Notion', connected: false },
+      { name: 'OpenTable', connected: false },
+      { name: 'Outlook Calendar', connected: false },
+      { name: 'Outlook Contacts', connected: false },
+      { name: 'Outlook Mail', connected: false },
+      { name: 'Peloton', connected: false },
+      { name: 'Philips Hue', connected: false },
+      { name: 'Finances (Plaid)', connected: false },
+      { name: 'Printify', connected: false },
+      { name: 'QuickBooks', connected: false },
+      { name: 'Replit', connected: false },
+      { name: 'Shopify', connected: false },
+      { name: 'Slack', connected: false },
+      { name: 'Spotify', connected: false },
+      { name: 'Stripe', connected: false },
+      { name: 'Tailscale', connected: false },
+      { name: 'Tessie', connected: false },
+      { name: 'Threads', connected: false },
+      { name: 'Threads Messages', connected: false },
+      { name: 'Todoist', connected: false },
+      { name: 'Vercel', connected: false },
+      { name: 'Withings', connected: false },
+      { name: 'Zapier', connected: false },
+      { name: 'Zoom', connected: false }
+    ];
+
+    function renderConnectors() {
+      const container = document.getElementById('connectorsContainer');
+      if (!container) return;
+
+      let list = [...naturalConnectors];
+      if (isReversed) list.reverse();
+
+      const connectedItems = list.filter(item => item.connected);
+      const availableItems = list.filter(item => !item.connected);
+
+      let html = '';
+
+      if (connectedItems.length > 0) {
+        html += `<div class="space-y-2">
+          <div class="text-xs font-semibold text-slate-400 px-2 tracking-wide">Connected</div>
+          <div class="bg-[#242426] rounded-2xl overflow-hidden divide-y divide-[#2F2F31]">`;
+        connectedItems.forEach(item => {
+          html += `<div onclick="openDetailModal('${item.modal}')" class="flex items-center justify-between p-3.5 hover:bg-[#2C2C2E] cursor-pointer transition-colors">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-slate-800 flex items-center justify-center text-white font-bold text-xs shadow">${item.name.charAt(0)}</div>
+              <span class="font-medium text-sm text-white">${item.name}</span>
+            </div>
+            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>`;
+        });
+        html += `</div></div>`;
+      }
+
+      if (availableItems.length > 0) {
+        html += `<div class="space-y-2">
+          <div class="text-xs font-semibold text-slate-400 px-2 tracking-wide">Available</div>
+          <div class="bg-[#242426] rounded-2xl overflow-hidden divide-y divide-[#2F2F31]">`;
+        availableItems.forEach(item => {
+          html += `<div class="flex items-center justify-between p-3.5 hover:bg-[#2C2C2E] transition-colors">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-zinc-800 flex items-center justify-center text-white font-bold text-xs shadow">${item.name.charAt(0)}</div>
+              <span class="font-medium text-sm text-white">${item.name}</span>
+            </div>
+            <span class="text-blue-400 hover:text-blue-300 font-semibold text-sm cursor-pointer">Connect</span>
+          </div>`;
+        });
+        html += `</div></div>`;
+      }
+
+      container.innerHTML = html;
+    }
+
+    function toggleConnectorsOrder() {
+      isReversed = !isReversed;
+      document.getElementById('orderToggleBtn').innerText = isReversed ? 'Order: Reversed' : 'Order: Natural';
+      renderConnectors();
+    }
+
+    function updateCounterBadge() {
+      const badge = document.getElementById('sendCounterBadge');
+      if (badge) badge.innerText = `Sends: ${sendCount} / 400`;
+    }
+
+    function handleSend() {
+      const input = document.getElementById('userInput');
+      if (!input.value.trim()) return;
+
+      sendCount++;
+      localStorage.setItem('caf_send_count', sendCount);
+      updateCounterBadge();
+      triggerIOSAnimation();
+      input.value = '';
+
+      if (sendCount % 400 === 0 && sendCount > 0) {
+        triggerRareLollipopAnimation();
+      } else {
+        triggerManualSmile();
+      }
+    }
+
+    function triggerIOSAnimation() {
+      const capsules = document.querySelectorAll('.ios-glow-border');
+      const edgeGlow = document.getElementById('iosEdgeGlow');
+      capsules.forEach(capsule => capsule.classList.add('active-glow'));
+      if (edgeGlow) edgeGlow.classList.add('active');
+      setTimeout(() => {
+        capsules.forEach(capsule => capsule.classList.remove('active-glow'));
+        if (edgeGlow) edgeGlow.classList.remove('active');
+      }, 2500);
+    }
+
+    function triggerManualSmile() {
+      const blushes = document.querySelectorAll('.caf-blush');
+      blushes.forEach(b => {
+        b.style.animation = 'none';
+        b.offsetHeight;
+        b.style.animation = 'blushPulse 1s ease-in-out 2';
+      });
+    }
+
+    function triggerRareLollipopAnimation() {
+      const lollipop = document.getElementById('lollipopOverlay');
+      if (!lollipop) return;
+      const animations = ['anim-eat', 'anim-forehead', 'anim-throw', 'anim-flag', 'anim-pirate'];
+      const randomAnim = animations[Math.floor(Math.random() * animations.length)];
+      lollipop.className = 'absolute inset-0 pointer-events-none flex items-center justify-center opacity-100 ' + randomAnim;
+      setTimeout(() => {
+        lollipop.className = 'absolute inset-0 pointer-events-none flex items-center justify-center opacity-0';
+      }, 4000);
+    }
+
+    function showModule(moduleId) {
+      const modules = ['sidechats', 'home', 'museum'];
+      modules.forEach(m => {
+        const el = document.getElementById(`module-${m}`);
+        if (el) el.classList.add('hidden');
+      });
+      const target = document.getElementById(`module-${moduleId}`);
+      if (target) target.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function shuffleInspiration() { showModule('home'); }
+    function openSettingsModal() { triggerIOSAnimation(); document.getElementById('settingsModal').classList.remove('hidden'); document.getElementById('settingsModal').classList.add('flex'); }
+    function closeSettingsModal() { document.getElementById('settingsModal').classList.add('hidden'); document.getElementById('settingsModal').classList.remove('flex'); }
+    function openConnectorsModal() { closeSettingsModal(); triggerIOSAnimation(); renderConnectors(); document.getElementById('connectorsModal').classList.remove('hidden'); document.getElementById('connectorsModal').classList.add('flex'); }
+    function closeConnectorsModal() { document.getElementById('connectorsModal').classList.add('hidden'); document.getElementById('connectorsModal').classList.remove('flex'); openSettingsModal(); }
+    function openDevicesModal() { closeSettingsModal(); triggerIOSAnimation(); document.getElementById('devicesModal').classList.remove('hidden'); document.getElementById('devicesModal').classList.add('flex'); }
+    function closeDevicesModal() { document.getElementById('devicesModal').classList.add('hidden'); document.getElementById('devicesModal').classList.remove('flex'); openSettingsModal(); }
+    function openDeviceDetailModal() { closeDevicesModal(); document.getElementById('deviceDetailModal').classList.remove('hidden'); document.getElementById('deviceDetailModal').classList.add('flex'); }
+    function closeDeviceDetailModal() { document.getElementById('deviceDetailModal').classList.add('hidden'); document.getElementById('deviceDetailModal').classList.remove('flex'); openDevicesModal(); }
+    function openDetailModal(modalId) { closeConnectorsModal(); document.getElementById(modalId).classList.remove('hidden'); document.getElementById(modalId).classList.add('flex'); }
+    function closeDetailModal(modalId) { document.getElementById(modalId).classList.add('hidden'); document.getElementById(modalId).classList.remove('flex'); openConnectorsModal(); }
+  </script>
 </body>
 </html>
