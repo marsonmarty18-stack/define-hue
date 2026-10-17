@@ -52,9 +52,9 @@
         </span>
         <span class="text-slate-400">Active Companion:</span>
         <select id="companionSelect" onchange="changeCompanion(this.value)" class="bg-transparent text-brand-500 font-semibold focus:outline-none cursor-pointer">
+          <option value="caf_v1" class="bg-slate-900 text-white">🐾 Caf (Muse Mascot)</option>
           <option value="aetheria_v1" class="bg-slate-900 text-white">✨ Aetheria (Creative Sprite)</option>
           <option value="gryphon_v1" class="bg-slate-900 text-white">🛡️ Gryphon (Guardian / Focus)</option>
-          <option value="kitsune_v1" class="bg-slate-900 text-white">🦊 Kitsune (Technical Weaver)</option>
         </select>
       </div>
     </div>
@@ -65,8 +65,6 @@
 
     <!-- HOME / HUB VIEW -->
     <section id="module-home" class="space-y-8">
-      
-      <!-- HERO BANNER -->
       <div class="glass-card rounded-3xl p-8 relative overflow-hidden border border-brand-500/20 glow-effect transition-all">
         <div class="max-w-2xl relative z-10 space-y-4">
           <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 border border-brand-500/20">
@@ -196,7 +194,6 @@
         <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Tennis</button>
         <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Martial Arts</button>
         <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Skateboarding</button>
-        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Track & Field</button>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -216,7 +213,7 @@
             <span>AI Coach Insight</span>
           </h3>
           <div class="bg-slate-900 p-4 rounded-xl text-xs space-y-2 border border-slate-800">
-            <p class="text-brand-500 font-semibold" id="companion-coach-name">Aetheria says:</p>
+            <p class="text-brand-500 font-semibold" id="companion-coach-name">Caf says:</p>
             <p class="text-slate-300" id="companion-coach-text">
               "Your shooting mechanics look solid! Based on your last 3 logged sessions, focusing on your elbow alignment during jump shots will boost consistency by ~14%."
             </p>
@@ -269,6 +266,13 @@
 
   </main>
 
+  <!-- FLOATING CAF MASCOT AVATAR -->
+  <div class="fixed bottom-6 right-6 z-50">
+    <div class="relative w-16 h-16 rounded-full overflow-hidden border-2 border-brand-500 shadow-2xl cursor-pointer hover:scale-105 transition-transform" onclick="alert('Caf is active and ready to assist!')">
+      <img src="IMG_1676.jpeg" alt="Caf - Muse Mascot" class="w-full h-full object-cover">
+    </div>
+  </div>
+
   <script>
     function showModule(moduleId) {
       const modules = ['home', 'museum', 'sports', 'broadcast', 'arts'];
@@ -303,15 +307,15 @@
       const coachName = document.getElementById('companion-coach-name');
       const coachText = document.getElementById('companion-coach-text');
 
-      if (companionId === 'aetheria_v1') {
-        coachName.innerText = "Aetheria (Creative Sprite) says:";
+      if (companionId === 'caf_v1') {
+        coachName.innerText = "Caf says:";
+        coachText.innerText = '"Welcome! I am Caf, your fluffy companion guide. What creative project shall we tackle today?"';
+      } else if (companionId === 'aetheria_v1') {
+        coachName.innerText = "Aetheria says:";
         coachText.innerText = '"Your shooting mechanics look solid! Based on your last 3 logged sessions, focusing on your elbow alignment during jump shots will boost consistency by ~14%."';
       } else if (companionId === 'gryphon_v1') {
-        coachName.innerText = "Gryphon (Guardian) says:";
-        coachText.innerText = '"Training discipline is on target. Heart rate recovery times improved by 8%. Recommendation: Maintain structured rest intervals."';
-      } else if (companionId === 'kitsune_v1') {
-        coachName.innerText = "Kitsune (Weaver) says:";
-        coachText.innerText = '"Analyzing biomechanical angles: Release time is 0.42 seconds. Tweak foot positioning by 5 degrees for optimal force distribution."';
+        coachName.innerText = "Gryphon says:";
+        coachText.innerText = '"Training discipline is on target. Heart rate recovery times improved by 8%."';
       }
     }
 
