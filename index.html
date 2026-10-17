@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUSE Spectrum | Creative & Active Inspiration Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#f0fdf4', 500: '#22c55e', 600: '#16a34a', 900: '#14532d' },
+            darkbg: '#0B0F17',
+            cardbg: '#161F30',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-card {
+      background: rgba(22, 31, 48, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-effect:hover {
+      box-shadow: 0 0 25px rgba(34, 197, 94, 0.25);
+    }
+  </style>
+</head>
+<body class="bg-darkbg text-slate-100 min-h-screen font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+  <!-- TOP NAV -->
+  <header class="sticky top-0 z-50 glass-card border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="showModule('home')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-500 to-cyan-500 flex items-center justify-center text-xl font-black shadow-lg">
+          M
+        </div>
+        <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-white via-slate-200 to-brand-500 bg-clip-text text-transparent">
+          MUSE SPECTRUM
+        </span>
+      </div>
+
+      <!-- COMPANION SELECTOR STATUS -->
+      <div class="flex items-center gap-3 glass-card px-3 py-1.5 rounded-full text-xs">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-500 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span>
+        </span>
+        <span class="text-slate-400">Active Companion:</span>
+        <select id="companionSelect" onchange="changeCompanion(this.value)" class="bg-transparent text-brand-500 font-semibold focus:outline-none cursor-pointer">
+          <option value="aetheria_v1" class="bg-slate-900 text-white">✨ Aetheria (Creative Sprite)</option>
+          <option value="gryphon_v1" class="bg-slate-900 text-white">🛡️ Gryphon (Guardian / Focus)</option>
+          <option value="kitsune_v1" class="bg-slate-900 text-white">🦊 Kitsune (Technical Weaver)</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- HOME / HUB VIEW -->
+    <section id="module-home" class="space-y-8">
+      
+      <!-- HERO BANNER -->
+      <div class="glass-card rounded-3xl p-8 relative overflow-hidden border border-brand-500/20 glow-effect transition-all">
+        <div class="max-w-2xl relative z-10 space-y-4">
+          <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-500 border border-brand-500/20">
+            Powered by Muse Agentic Architecture
+          </span>
+          <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+            Immerse Yourself in Any Hobby or Creative Dream.
+          </h1>
+          <p class="text-slate-400 text-base">
+            Select an inspiration category below or hit <strong class="text-white">Shuffle</strong> to explore world museums, sports performance centers, broadcasting suites, and personal digital archives.
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <button onclick="shuffleInspiration()" class="bg-gradient-to-r from-brand-500 to-emerald-600 hover:from-brand-600 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-brand-500/20 transition-all flex items-center gap-2">
+              🎲 Shuffle Inspiration
+            </button>
+            <button onclick="showModule('museum')" class="glass-card hover:bg-slate-800 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+              🏛️ Open Personal Museum
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORY GRID -->
+      <div class="space-y-4">
+        <h2 class="text-2xl font-bold tracking-tight flex items-center gap-2">
+          <span>Explore All Inspirations & Hobbies</span>
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div onclick="showModule('museum')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-brand-500/50 glow-effect transition-all space-y-3 group">
+            <div class="text-4xl group-hover:scale-110 transition-transform">🏛️</div>
+            <h3 class="text-xl font-bold group-hover:text-brand-500 transition-colors">Museums & Artifacts</h3>
+            <p class="text-xs text-slate-400">Curate your own personal museum or explore historical exhibits worldwide.</p>
+            <span class="text-xs text-brand-500 font-semibold block">Explore Page &rarr;</span>
+          </div>
+
+          <div onclick="showModule('sports')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-brand-500/50 glow-effect transition-all space-y-3 group">
+            <div class="text-4xl group-hover:scale-110 transition-transform">🏀</div>
+            <h3 class="text-xl font-bold group-hover:text-brand-500 transition-colors">All Sports & Movement</h3>
+            <p class="text-xs text-slate-400">Basketball, Soccer, Tennis, Martial Arts & 50+ athletic disciplines.</p>
+            <span class="text-xs text-brand-500 font-semibold block">Explore Page &rarr;</span>
+          </div>
+
+          <div onclick="showModule('broadcast')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-brand-500/50 glow-effect transition-all space-y-3 group">
+            <div class="text-4xl group-hover:scale-110 transition-transform">🎙️</div>
+            <h3 class="text-xl font-bold group-hover:text-brand-500 transition-colors">Broadcasting & Media</h3>
+            <p class="text-xs text-slate-400">Host live streams, podcasts, and video broadcasts with co-host AI overlays.</p>
+            <span class="text-xs text-brand-500 font-semibold block">Explore Page &rarr;</span>
+          </div>
+
+          <div onclick="showModule('arts')" class="glass-card p-6 rounded-2xl cursor-pointer hover:border-brand-500/50 glow-effect transition-all space-y-3 group">
+            <div class="text-4xl group-hover:scale-110 transition-transform">🎨</div>
+            <h3 class="text-xl font-bold group-hover:text-brand-500 transition-colors">Visual & Creative Arts</h3>
+            <p class="text-xs text-slate-400">Digital canvas, 3D modeling, music production, and interactive design.</p>
+            <span class="text-xs text-brand-500 font-semibold block">Explore Page &rarr;</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 1: MUSEUM PAGE -->
+    <section id="module-museum" class="hidden space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
+          <h1 class="text-3xl font-extrabold">🏛️ Digital Museum Hub</h1>
+        </div>
+        <button onclick="openAddArtifactModal()" class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all">
+          + Add New Artifact
+        </button>
+      </div>
+
+      <div class="flex gap-4 border-b border-slate-800 pb-3">
+        <button onclick="toggleMuseumMode('personal')" id="tab-personal" class="text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1">
+          My Personal Museum Vault
+        </button>
+        <button onclick="toggleMuseumMode('world')" id="tab-world" class="text-sm font-bold text-slate-400 hover:text-white pb-1">
+          World Museum Discovery
+        </button>
+      </div>
+
+      <div id="museum-personal-view" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card p-4 rounded-2xl space-y-3">
+          <div class="h-48 bg-slate-800 rounded-xl flex items-center justify-center text-4xl">🏆</div>
+          <h3 class="font-bold text-lg">Championship Trophy 2025</h3>
+          <p class="text-xs text-slate-400">First place regional tournament highlight video and team photo badge.</p>
+          <span class="inline-block bg-slate-800 px-2.5 py-1 rounded-full text-[10px] text-brand-500 font-medium">Video Memory • Added Oct 2025</span>
+        </div>
+
+        <div class="glass-card p-4 rounded-2xl space-y-3">
+          <div class="h-48 bg-slate-800 rounded-xl flex items-center justify-center text-4xl">🎨</div>
+          <h3 class="font-bold text-lg">First Canvas Oil Painting</h3>
+          <p class="text-xs text-slate-400">High-resolution scan of my original canvas piece, annotated by AI Curator.</p>
+          <span class="inline-block bg-slate-800 px-2.5 py-1 rounded-full text-[10px] text-brand-500 font-medium">Image Memory • Added Aug 2026</span>
+        </div>
+      </div>
+
+      <div id="museum-world-view" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card p-6 rounded-2xl space-y-3 border-l-4 border-brand-500">
+          <h3 class="text-xl font-bold">The Louvre Museum (Paris, France)</h3>
+          <p class="text-xs text-slate-400">Virtual tour access to official online tours and collections database.</p>
+          <a href="https://www.louvre.fr/en/online-tours" target="_blank" class="inline-block bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-4 py-2 rounded-xl text-brand-500">
+            Launch Virtual Exhibit &rarr;
+          </a>
+        </div>
+        <div class="glass-card p-6 rounded-2xl space-y-3 border-l-4 border-cyan-500">
+          <h3 class="text-xl font-bold">Tokyo Digital Art Museum (teamLab)</h3>
+          <p class="text-xs text-slate-400">Immersive, borderless digital art installations at Azabudai Hills.</p>
+          <a href="https://www.teamlab.art/e/tokyo/" target="_blank" class="inline-block bg-slate-800 hover:bg-slate-700 text-xs font-semibold px-4 py-2 rounded-xl text-cyan-400">
+            Launch Virtual Exhibit &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 2: SPORTS PAGE -->
+    <section id="module-sports" class="hidden space-y-6">
+      <div>
+        <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
+        <h1 class="text-3xl font-extrabold">🏀 Sports & Athletic Zone</h1>
+        <p class="text-xs text-slate-400 mt-1">Select your sport to access interactive playbooks, performance tracking, and training AI.</p>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button class="bg-brand-500 text-white text-xs font-bold px-4 py-2 rounded-xl">Basketball</button>
+        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Soccer / Football</button>
+        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Tennis</button>
+        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Martial Arts</button>
+        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Skateboarding</button>
+        <button class="glass-card hover:bg-slate-800 text-slate-300 text-xs font-bold px-4 py-2 rounded-xl">Track & Field</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card p-6 rounded-2xl space-y-4 md:col-span-2">
+          <h3 class="text-xl font-bold">Interactive Playbook & Drill Canvas</h3>
+          <div class="h-64 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-center relative overflow-hidden">
+            <span class="text-slate-600 text-sm font-semibold">[ Digital Tactical Board Loading... ]</span>
+          </div>
+          <div class="flex gap-3">
+            <button class="bg-brand-500 hover:bg-brand-600 text-white text-xs font-bold px-4 py-2 rounded-xl">Run Drill Simulation</button>
+            <button class="glass-card hover:bg-slate-800 text-xs font-bold px-4 py-2 rounded-xl">Record Movement Clip</button>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <h3 class="text-lg font-bold flex items-center gap-2">
+            <span>AI Coach Insight</span>
+          </h3>
+          <div class="bg-slate-900 p-4 rounded-xl text-xs space-y-2 border border-slate-800">
+            <p class="text-brand-500 font-semibold" id="companion-coach-name">Aetheria says:</p>
+            <p class="text-slate-300" id="companion-coach-text">
+              "Your shooting mechanics look solid! Based on your last 3 logged sessions, focusing on your elbow alignment during jump shots will boost consistency by ~14%."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 3: BROADCASTING PAGE -->
+    <section id="module-broadcast" class="hidden space-y-6">
+      <div>
+        <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
+        <h1 class="text-3xl font-extrabold">🎙️ Live Broadcast Studio</h1>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 glass-card p-6 rounded-2xl space-y-4">
+          <div class="h-72 bg-slate-900 rounded-xl border border-slate-800 flex flex-col items-center justify-center gap-3 relative">
+            <span class="text-4xl">📹</span>
+            <span class="text-slate-400 text-sm">Virtual Camera Preview Ready</span>
+            <span class="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-md uppercase tracking-wider">Offline</span>
+          </div>
+          <div class="flex gap-3">
+            <button class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-6 py-2.5 rounded-xl">Go Live</button>
+            <button class="glass-card hover:bg-slate-800 text-xs font-bold px-4 py-2 rounded-xl">Toggle AI Co-Host</button>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-2xl space-y-4">
+          <h3 class="font-bold text-lg">Broadcast Co-Host Teleprompter</h3>
+          <div class="bg-slate-900 p-4 rounded-xl text-xs space-y-3 h-64 overflow-y-auto border border-slate-800">
+            <p class="text-slate-400"><strong class="text-brand-500">Co-Host AI:</strong> "Welcome back everyone! Today we are discussing the evolution of digital archives and world museums."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 4: VISUAL ARTS PAGE -->
+    <section id="module-arts" class="hidden space-y-6">
+      <div>
+        <button onclick="showModule('home')" class="text-xs text-slate-400 hover:text-white mb-2 block">&larr; Back to Inspirations</button>
+        <h1 class="text-3xl font-extrabold">🎨 Visual Arts Canvas</h1>
+      </div>
+      <div class="glass-card p-6 rounded-2xl space-y-4">
+        <div class="h-80 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-center">
+          <p class="text-slate-500 text-sm">[ Generative Studio Canvas & Drawing Layer ]</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function showModule(moduleId) {
+      const modules = ['home', 'museum', 'sports', 'broadcast', 'arts'];
+      modules.forEach(m => {
+        document.getElementById(`module-${m}`).classList.add('hidden');
+      });
+      document.getElementById(`module-${moduleId}`).classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function toggleMuseumMode(mode) {
+      if(mode === 'personal') {
+        document.getElementById('museum-personal-view').classList.remove('hidden');
+        document.getElementById('museum-world-view').classList.add('hidden');
+        document.getElementById('tab-personal').className = "text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1";
+        document.getElementById('tab-world').className = "text-sm font-bold text-slate-400 hover:text-white pb-1";
+      } else {
+        document.getElementById('museum-personal-view').classList.add('hidden');
+        document.getElementById('museum-world-view').classList.remove('hidden');
+        document.getElementById('tab-world').className = "text-sm font-bold text-brand-500 border-b-2 border-brand-500 pb-1";
+        document.getElementById('tab-personal').className = "text-sm font-bold text-slate-400 hover:text-white pb-1";
+      }
+    }
+
+    function shuffleInspiration() {
+      const modules = ['museum', 'sports', 'broadcast', 'arts'];
+      const randomModule = modules[Math.floor(Math.random() * modules.length)];
+      showModule(randomModule);
+    }
+
+    function changeCompanion(companionId) {
+      const coachName = document.getElementById('companion-coach-name');
+      const coachText = document.getElementById('companion-coach-text');
+
+      if (companionId === 'aetheria_v1') {
+        coachName.innerText = "Aetheria (Creative Sprite) says:";
+        coachText.innerText = '"Your shooting mechanics look solid! Based on your last 3 logged sessions, focusing on your elbow alignment during jump shots will boost consistency by ~14%."';
+      } else if (companionId === 'gryphon_v1') {
+        coachName.innerText = "Gryphon (Guardian) says:";
+        coachText.innerText = '"Training discipline is on target. Heart rate recovery times improved by 8%. Recommendation: Maintain structured rest intervals."';
+      } else if (companionId === 'kitsune_v1') {
+        coachName.innerText = "Kitsune (Weaver) says:";
+        coachText.innerText = '"Analyzing biomechanical angles: Release time is 0.42 seconds. Tweak foot positioning by 5 degrees for optimal force distribution."';
+      }
+    }
+
+    function openAddArtifactModal() {
+      alert("Artifact vault action initialized. You can upload or log your personal hobby memories here!");
+    }
+  </script>
+</body>
+</html>
